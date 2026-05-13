@@ -1,19 +1,211 @@
 
+<!-- success.html -->
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<title>Payment Successful</title>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Payment Verification</title>
+
+  <style>
+
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family:Arial, sans-serif;
+    }
+
+    body{
+      background:#f4f7fb;
+
+      padding:20px;
+    }
+
+    .container{
+      max-width:500px;
+      background:#fff;
+      margin:auto;
+      padding:30px;
+      border-radius:15px;
+      box-shadow:0 5px 20px rgba(0,0,0,0.1);
+    }
+
+    h2{
+      text-align:center;
+      color:#0a5cff;
+      margin-bottom:20px;
+    }
+
+    .payment-box{
+      background:#eef4ff;
+      padding:20px;
+
+      border-radius:10px;
+      margin-bottom:25px;
+      line-height:1.8;
+    }
+
+    .payment-box strong{
+      color:#000;
+    }
+
+    label{
+      display:block;
+      margin-top:15px;
+      margin-bottom:8px;
+      font-weight:bold;
+      color:#333;
+    }
+
+    input, textarea{
+      width:100%;
+      padding:12px;
+      border:1px solid #ccc;
+
+      border-radius:8px;
+      outline:none;
+    }
+
+    textarea{
+      resize:none;
+      height:100px;
+    }
+
+    button{
+      width:100%;
+      padding:15px;
+      margin-top:20px;
+      border:none;
+      background:#0a5cff;
+      color:#fff;
+      border-radius:10px;
+      font-size:16px;
+      cursor:pointer;
+      transition:0.3s;
+    }
+
+
+    button:hover{
+      background:#0047cc;
+    }
+
+    .hidden{
+      display:none;
+    }
+
+    .success-message{
+      text-align:center;
+      margin-top:25px;
+      padding:20px;
+      background:#e7ffe7;
+      border-radius:10px;
+    }
+
+    .group-btn{
+      display:inline-block;
+      margin-top:15px;
+      padding:12px 20px;
+
+      background:#25D366;
+      color:#fff;
+      text-decoration:none;
+      border-radius:8px;
+      font-weight:bold;
+    }
+
+  </style>
 </head>
 
-<body style="text-align:center; font-family:Arial; padding:40px;">
+<body>
 
-<h2>Payment Successful ✅</h2>
-<p>Click below to join the WhatsApp group</p>
+  <div class="container">
 
-<!-- PUT YOUR WHATSAPP LINK HERE -->
-<a href="https://chat.whatsapp.com/Hr2pDus3VM3AZFiS7fF21A?mode=gi_t">
-<button style="padding:15px; font-size:16px;">Join WhatsApp Group</button>
-</a>
+    <h2>Complete Payment</h2>
 
-</body>
-</html>
+    <div class="payment-box">
+      <p><strong>MoMo Number:</strong> 0558636729</p>
+      <p><strong>Name:</strong> Solid Biblical Foundation</p>
+
+      <p><strong>Network:</strong> MTN Mobile Money</p>
+      <p><strong>Amount:</strong> GHS 10</p>
+    </div>
+
+    <form id="paymentForm">
+
+      <label>Full Name</label>
+      <input type="text" required>
+
+      <label>Phone Number</label>
+      <input type="tel" required>
+
+      <label>Transaction ID</label>
+      <input type="text" required>
+
+      <label>Upload Payment Screenshot</label>
+      <input type="file" accept="image/*" required>
+
+
+      <label>Additional Message (Optional)</label>
+      <textarea placeholder="Write here..."></textarea>
+
+      <button type="submit">
+        Submit For Verification
+      </button>
+
+    </form>
+
+    <div class="success-message hidden" id="successBox">
+
+      <h3>Payment Submitted Successfully</h3>
+
+      <p>
+        Admin will verify your payment before access is granted.
+
+      </p>
+
+      <!-- Replace the link below with your WhatsApp group link -->
+      <a href="https://chat.whatsapp.com/Hr2pDus3VM3AZFiS7fF21A?mode=gi_t"
+         class="group-btn hidden"
+         id="groupLink"
+         target="_blank">
+         Join WhatsApp Group
+      </a>
+
+    </div>
+
+  </div>
+
+  
+<script>
+const form = document.getElementById("paymentForm");
+const successBox = document.getElementById("successBox");
+const groupLink = document.getElementById("groupLink");
+
+// Check if user is already approved
+const approved = localStorage.getItem("approved");
+
+if (approved === "true") {
+  successBox.classList.remove("hidden");
+  form.style.display = "none";
+  groupLink.classList.remove("hidden");
+}
+
+form.addEventListener("submit", function(e){
+
+  e.preventDefault();
+
+  // Save submission (fake "pending approval")
+  localStorage.setItem("submitted", "true");
+
+  form.style.display = "none";
+  successBox.classList.remove("hidden");
+
+  alert("Submitted! Waiting for admin approval...");
+});
+
+// ADMIN SIMULATION (for you only)
+// Type this in browser console to approve a user:
+// localStorage.setItem("approved","true");
+
+</script>
